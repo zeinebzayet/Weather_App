@@ -1,0 +1,25 @@
+version: '3'
+
+networks:
+  datapipeline:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.18.0.0/16"
+        
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./data:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      datapipeline:
+        ipv4_address: 172.18.0.7
