@@ -46,7 +46,7 @@ services:
         volumes:
           - ./config.yml:/config.yml
         ports:
-          - "8088:8080"
+          - "8080:8080"
         entrypoint: ./kowl --config.filepath=/config.yml
         depends_on:
           - zookeeper
@@ -63,7 +63,7 @@ services:
     container_name: python
     hostname: python
     volumes:
-          - ./:/workspace
+          - ./src:/workspace
     stdin_open: true
     tty: true
     networks:
