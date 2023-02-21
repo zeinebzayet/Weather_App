@@ -1,13 +1,18 @@
 from http.client import REQUEST_TIMEOUT
+from flask import Flask, request
 import requests
 from kafka import KafkaProducer
 import json
 
+app = Flask(__name__)
+
+@app.route('/recuperateLocation', methods=['POST'])
 def produce_weather_data():
     # API endpoint to retrieve weather data
     api_key = "ca91930c630c938d7c31adc91c997a40"
-    location = "London,UK"
-    #location=input("Enter city name: ")
+    #location = "London,UK"
+    location = request.json.get('location')
+    print(location)
     API_ENDPOINT = f"http://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key}"
 
     # Replace city_name and API_KEY with the desired city and API key
@@ -21,7 +26,8 @@ def produce_weather_data():
     producer.send('weather_topic',value=json.dumps(weather_data).encode('utf-8'))
     producer.flush()
 
-    print(json.dumps(weather_data).encode('utf-8'))
+    #print(json.dumps(weather_data).encode('utf-8'))
 if __name__ == '__main__':
-    produce_weather_data()
+    #produce_weather_data()
+    app.run(host='0.0.0.0',debug=True)
     
