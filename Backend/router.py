@@ -2,37 +2,72 @@ from flask import Blueprint, jsonify, request
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 from config_db import db,client 
+from flask import Flask, request
 
 
-users_api = Blueprint('users_api', __name__)
+app = Flask(__name__)
 
-@users_api.route('/register', methods=['POST'])
+@app.route('/register', methods=['POST'])
 def register():
     # Récupérer les données de l'utilisateur à partir de la requête POST
-    username = request.form.get('username')
-    email = request.form.get('email')
-    password = request.form.get('password')
+    username = request.json.get('username')
+    email = request.json.get('email')
+    password = request.json.get('password')
+    tel=request.json.get('tel')
     # Générer le hash du mot de passe de l'utilisateur
     hashed_password = generate_password_hash(password, method='sha256')
     # Vérifier si l'utilisateur existe déjà dans la base de données
-    if db.users.find_one({'email': email}) is not None:
+    if db.collectionClient.find_one({'email': email}) is not None:
         return jsonify({'error': 'User with this email already exists.'})
     # Ajouter l'utilisateur à la base de données
-    db.users.insert_one({'username': username, 'email': email, 'password': hashed_password})
+    db.collectionClient.insert_one({'username': username, 'email': email, 'password': hashed_password,'tel': tel})
     return jsonify({'message': 'User created successfully.'})
 
-@users_api.route('/login', methods=['POST'])
+
+
+@app.route('/login', methods=['POST'])
 def login():
     # Récupérer les données de l'utilisateur à partir de la requête POST
-    email = request.form.get('email')
-    password = request.form.get('password')
+    email = request.json.get('email')
+    password = request.json.get('password')
     # Récupérer l'utilisateur correspondant à l'e-mail à partir de la base de données
-    user = db.users.find_one({'email': email})
+    user = db.collectionClient.find_one({'email': email})
     # Vérifier si l'utilisateur existe et si le mot de passe est correct
     if user is not None and check_password_hash(user['password'], password):
         return jsonify({'message': 'User logged in successfully.'})
     else:
         return jsonify({'error': 'Invalid email or password.'})
+
+
+
+
+
+
+
+
+        """
+
+# Route pour récupérer les données en fonction de l'id du client
+@app.route('/historique/<client_id>', methods=['GET'])
+def get_requete(client_id):
+    # Récupération des données en fonction de l'id du client
+   
+    req = collectionRequest.find_one({'client_id': client_id})
+
+    # Si la requête n'est pas trouvée
+    if not req:
+        return jsonify({'error': 'Client non trouvé'}), 404
+
+    # Récupération du contenu et de la ville
+    contenu = req.get('contenu')
+    ville = req.get('ville')
+
+    # Retourne les données sous forme de JSON
+    return jsonify({'contenu': contenu, 'ville': ville}), 200
+
+
+
+    
 
 
 @users_api.route('/register', methods=['GET'])
@@ -73,8 +108,9 @@ def alert_temp():
 
 
 
-
+def addNumbers(num1, num2, num3):
+"""
 
 if __name__ == '__main__':
     #produce_weather_data()
-    app.run(host='0.0.0.0',debug=True)
+    app.run(host='0.0.0.0',port=5000,debug=True)

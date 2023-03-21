@@ -6,7 +6,7 @@ import json
 
 app = Flask(__name__)
 
-@app.route('/recuperateLocation', methods=['POST'])
+@app.route('/recuperateLocation', methods=['GET'])
 def produce_weather_data():
     # API endpoint to retrieve weather data
     api_key = "ca91930c630c938d7c31adc91c997a40"

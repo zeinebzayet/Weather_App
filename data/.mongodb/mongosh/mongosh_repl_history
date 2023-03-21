@@ -1,0 +1,10 @@
+show collections
+db.collectionClient.find()
+db.client.find()
+use weatherdatabase
+db.weathercollection.find()
+getCollectionInfos ()
+db.collections
+db.collections.find()
+show collections
+use weatherdatabase
