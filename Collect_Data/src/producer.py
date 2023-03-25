@@ -16,8 +16,8 @@ def produce_weather_data():
     API_ENDPOINT = f"http://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key}"
 
     # Replace city_name and API_KEY with the desired city and API key
-    response = requests.get(API_ENDPOINT)
-    weather_data = response.json()
+    response = requests.get(API_ENDPOINT) 
+    weather_data = response.json() 
 
     # Create a Kafka producer
     producer = KafkaProducer(bootstrap_servers=['kafka:9092'],api_version=(0, 10, 0))

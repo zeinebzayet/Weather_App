@@ -10,4 +10,6 @@ db = client['weatherdatabase']
 collectionRequest = db['request']
 collectionClient= db['client']
 
+# Set up mail server
+
 

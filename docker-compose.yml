@@ -66,6 +66,8 @@ services:
           - .:/workspace
     ports:
       - '5000:5000'
+      - '5005:5005'
+      - '587:587'
     stdin_open: true
     tty: true
     networks:
