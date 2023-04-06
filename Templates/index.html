@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {{ toastr.include_jquery() }}
+    {{ toastr.include_toastr_css() }}
+    {{ toastr.message() }}
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Weather App</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="icon">
+  <link href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/fontawesome-free/css\all.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/aos/aos.css') }}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+
+
+
+
+</head>
+
+<body>
+  {{ toastr.include_toastr_js() }}
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="/response" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <h1>My Weather</h1>
+      </a>
+
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="/response" class="active">Home</a></li>
+          <li><a href="/about">About</a></li>
+          {% if logged_in %}
+          <li><a href="/edit_profile">Edit Profile</a></li>
+          <li><a href="/get_historique">History</a></li>
+          <li><a class="get-a-quote" href="/logout">logout</a></li>
+          {% else %}
+          <li><a href="/login">Sign In</a></li>
+          <li><a class="get-a-quote" href="/register">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+  <!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="hero d-flex align-items-center">
+    <div class="container">
+      <div class="row gy-4 d-flex justify-content-between">
+        <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          <h2 data-aos="fade-up">Discover the day's weather</h2>
+          <p data-aos="fade-up" data-aos-delay="100">Get up-to-date information on weather conditions <br>for any
+            location around the world.</p>
+
+
+
+
+        </div>
+
+        <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+          <img src="static/img/Capture.png" class="img-fluid mb-3 mb-lg-0" alt="">
+        </div>
+
+      </div>
+    </div>
+  </section><!-- End Hero Section -->
+
+
+  <main id="main">
+    <div class="breadcrumbs">
+      <nav>
+        <div class="container">
+          <ol>
+            <li><a>Home</a></li>
+            <li>Search</li>
+          </ol>
+        </div>
+      </nav>
+    </div>
+    <section>
+      <div class="container py-5 h-100">
+        <div class="row d-flex align-items-center justify-content-center h-100">
+          <div class="col-md-6 col-lg-5 col-xl-6">
+
+            <img src="static/img/iconeweath.png" class="img" alt="Image">
+            <h1>My Weather</h1>
+
+            <form class="d-flex" action="/response" method="POST">
+              <input class="form-control me-2" type="search" id="ville" name="ville" placeholder="Country or CitY"
+                aria-label="Search" value={{ville}}>
+              <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+
+          </div>
+          <div class="col-md-5 col-lg-9 col-xl-5 offset-xl-1">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+              <div class="col-md-8 col-lg-8 col-xl-10">
+
+                <div class="card" style="color: #4B515D; border-radius: 35px;">
+                  <div class="card-body p-4">
+
+                    <div class="d-flex">
+                      <h6 class="flex-grow-1">{{ville}}</h6>
+                      <h6>weather</h6>
+                    </div>
+
+                    <div class="d-flex flex-column text-center mt-5 mb-4">
+                      <h6 class="display-4 mb-0 font-weight-bold" style="color: #1C2331;"> {{temp}}C </h6>
+
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                      <div class="flex-grow-1" style="font-size: 1rem;">
+                        <div><i class="fas fa-wind fa-fw" style="color: #868B94;"></i> <span class="ms-1"> {{speed}}km/h
+                          </span></div>
+                        <div><i class="fas fa-tint fa-fw" style="color: #868B94;"></i> <span class="ms-1"> {{humidity}}%
+                          </span>
+                        </div>
+                        <div><i class="fas fa-sun fa-fw" style="color: #868B94;"></i> <span class="ms-1">
+                            {{pressure}}hPa </span>
+                        </div>
+                      </div>
+                      <div>
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-weather/ilu1.webp"
+                          width="100px">
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+          </div>
+
+          <div></div>
+          <div></div>
+
+
+          <div class="container py-5 h-100">
+            <div class="row d-flex align-items-center justify-content-left h-100">
+              <div class="col-md-6 col-lg-5 col-xl-6">
+                <i class="bi bi-bar-chart-line-fill" style="font-size: 2em; margin-left: 4%;"></i>
+<p></p>                <h1>Statistics</h1>
+              </div>
+            </div>
+          </div>
+          <iframe title="dashbord_weather_app" width="1800" height="700.25" src="https://app.powerbi.com/view?r=eyJrIjoiYjk1MTg2ODQtZDg1Ny00NGQ4LWJjNjItY2ZiMThlMzlhNTM4IiwidCI6ImRiZDY2NjRkLTRlYjktNDZlYi05OWQ4LTVjNDNiYTE1M2M2MSIsImMiOjl9" frameborder="0" allowFullScreen="true"></iframe>
+            frameborder="0" allowFullScreen="true"></iframe>
+
+
+
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+
+    <div class="container mt-4">
+      <div class="copyright">
+        &copy; Copyright Aya & zeineb & zeineb & nada & feriel
+      </div>
+
+    </div>
+
+  </footer><!-- End Footer -->
+  <!-- End Footer -->
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="./static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="./static/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="./static/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="./static/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="./static/vendor/aos/aos.js"></script>
+  <script src="./static/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="./static/js/main.js"></script>
+
+</body>
+
+</html>

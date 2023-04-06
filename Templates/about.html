@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Weather App</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="icon">
+  <link href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/fontawesome-free/css\all.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/aos/aos.css') }}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="templates/index.html" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <h1>My Weather</h1>
+      </a>
+
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="/response" class="active">Home</a></li>
+          <li><a href="/about">About</a></li>
+          {% if logged_in %}
+          <li><a href="/edit_profile">Edit Profile</a></li>
+          <li><a href="/get_historique">History</a></li>
+          <li><a class="get-a-quote" href="/logout">logout</a></li>
+          {% else %}
+          <li><a href="/login">Sign In</a></li>
+          <li><a class="get-a-quote" href="/register">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+  <!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+      <div class="page-header d-flex align-items-center" style="background-image: url('static/img/weatherImg.jpg');">
+        <div class="container position-relative">
+          <div class="row d-flex justify-content-center">
+            <div class="col-lg-6 text-center">
+              <h2>About</h2>
+              <p>All information about our application.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav>
+        <div class="container">
+          <ol>
+            <li><a href="templates/index.html">Home</a></li>
+            <li>About</li>
+          </ol>
+        </div>
+      </nav>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= About Us Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row gy-4">
+          <div class="col-lg-6 position-relative align-self-start order-lg-last order-first">
+            <img src="static/img/Capture3.png" class="img-fluid" alt="">
+
+          </div>
+          <div class="col-lg-6 content order-last  order-lg-first">
+            <h3>About Us</h3>
+            <br>
+            <br>
+            <p>
+              The application would provide a user interface to search for weather data by city and by country and display
+               the results on a map. Users would also be able to sign up to receive real-time weather alerts for specific cities.
+            </p>
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Us Section -->
+
+
+
+    <!-- ======= Our Team Section ======= -->
+    <section id="team" class="team pt-0">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <span>Our Team</span>
+          <h2>Our Team</h2>
+
+        </div>
+
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+
+          <div class="col-lg-4 col-md-6 d-flex">
+            <div class="member">
+              <img src="static/img/nada.jpg" class="img-fluid" alt="">
+              <div class="member-content">
+                <h4>Nada ben Taarit</h4>
+                <span>Web Development</span>
+
+
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+
+          <div class="col-lg-4 col-md-6 d-flex">
+            <div class="member">
+              <img src="static/img/zeinb zeyet1.jpg" class="img-fluid" alt="">
+              <div class="member-content">
+                <h4>zeineb Zayet</h4>
+                <span>Web Development</span>
+
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+
+          <div class="col-lg-4 col-md-6 d-flex">
+            <div class="member">
+              <img src="static/img/eya.jpg" class="img-fluid" alt="">
+              <div class="member-content">
+                <h4>Aya Riden</h4>
+                <span>Web Development</span>
+
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+          <div class="col-lg-4 col-md-6 d-flex">
+            <div class="member">
+              <img src="static/img/zeineb cherni.jpg" class="img-fluid" alt="">
+              <div class="member-content">
+                <h4>Zeineb Cherni</h4>
+                <span>Web Development</span>
+
+
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+          <div class="col-lg-4 col-md-6 d-flex">
+            <div class="member">
+              <img src="static/img/feriel3.jpg" class="img-fluid" alt="">
+              <div class="member-content">
+                <h4>Feriel ben Rjeb</h4>
+                <span>Web Development</span>
+
+
+              </div>
+            </div>
+          </div><!-- End Team Member -->
+        </div>
+
+      </div>
+    </section><!-- End Our Team Section -->
+
+
+
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+
+    <div class="container mt-4">
+      <div class="copyright">
+        &copy; Copyright Aya & zeineb & zeineb & nada & feriel
+      </div>
+
+    </div>
+
+  </footer><!-- End Footer -->
+  <!-- End Footer -->
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="./static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="./static/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="./static/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="./static/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="./static/vendor/aos/aos.js"></script>
+  <script src="./static/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="./static/js/main.js"></script>
+
+</body>
+
+</html>
