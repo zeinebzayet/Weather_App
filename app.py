@@ -102,7 +102,7 @@ def edit_profile():
             {'email': email},
             {'$set': {'username': username,'password': password, 'tel': tel}}
         )
-
+        
         # Rediriger l'utilisateur vers la page de profil
         return redirect(url_for('edit_profile'))
     else:
@@ -130,12 +130,17 @@ def register():
             HashPassword = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()) #Hash the password
             #hashed_password = generate_password_hash(password, method='sha256')
             db.collectionClient.insert_one({'username': username, 'email': email, 'password': HashPassword,'tel': tel})
+            flash("Account Created Successfully", 'success')
             return redirect("/login") 
 
-        else:      
+        else:
+            flash("User with this email already exists", 'error')      
             return render_template("Sign_Up.html",logged_in=logged_in)
+            
     else:
+       
         return render_template('Sign_Up.html',logged_in=logged_in)
+        
 
 
 # Route pour afficher la page de connexion
@@ -156,10 +161,11 @@ def login():
 
 
         if user is not None and bcrypt.checkpw(password.encode("utf-8"), user['password']):
-            flash("You are successfully logged in", 'success')
             session["email"] = email
+            flash("You are successfully logged in", 'success')
             return redirect("/index") 
         else:
+            flash("Email or Password is incorrect", 'error')
             return render_template('Sign_In.html',logged_in=logged_in)
     else:
         return render_template('Sign_In.html',logged_in=logged_in)

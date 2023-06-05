@@ -2,9 +2,7 @@
 <html lang="en">
 
 <head>
-  {{ toastr.include_jquery() }}
-    {{ toastr.include_toastr_css() }}
-    {{ toastr.message() }}
+ 
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -33,7 +31,9 @@
 
   <!-- Template Main CSS File -->
   <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
-
+  {{ toastr.include_jquery() }}
+  {{ toastr.include_toastr_css() }}
+  {{ toastr.message() }}
 
 
 

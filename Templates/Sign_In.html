@@ -4,9 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  {{ toastr.include_jquery() }}
-  {{ toastr.include_toastr_css() }}
-  {{ toastr.message() }}
+ 
   <title>Sign In</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
@@ -32,7 +30,9 @@
 
   <!-- Template Main CSS File -->
   <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
-
+  {{ toastr.include_jquery() }}
+  {{ toastr.include_toastr_css() }}
+  {{ toastr.message() }}
 
 </head>
 
